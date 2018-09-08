@@ -1,10 +1,12 @@
-import React from 'react'
+import React from 'react';
+//import PersonIcon from './PersonIcon';
 
 class TaskItem extends React.Component {
   render(){
     return (
       <div>
         <div className="box">
+          {/*<PersonIcon address={this.props.address}/>*/}
           <div className="task-title">
             <h3 className="has-text-weight-bold is-size-4 has-font-serif">{this.props.title}</h3>
           </div>
@@ -17,6 +19,6 @@ class TaskItem extends React.Component {
       </div>
     );
   }
-}
+};
 
 export default TaskItem;
