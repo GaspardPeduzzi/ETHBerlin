@@ -9,7 +9,9 @@ export default props => {
   }
   return (
     <div>
-      <Route path={`${props.match.path}/:taskId`} component={TaskDetails}/>
+      <Route path={`${props.match.path}/:taskId`} render={p => (
+        <TaskDetails {...p} colonyClient={props.colonyClient} node={props.node} />
+      )}/>
       <Route exact path={props.match.path} render={p => (
         <TaskList {...p} colonyClient={props.colonyClient} node={props.node} />
       )}/>

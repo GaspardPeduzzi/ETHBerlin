@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import TaskItem from './TaskItem';
 
 class TaskList extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       tasks: []
     }
