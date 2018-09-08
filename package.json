@@ -7,6 +7,7 @@
     "@colony/colony-js-client": "^1.6.1",
     "@colony/colony-js-contract-loader-http": "^1.5.4",
     "ethers": "^4.0.0-beta.14",
+    "ipfs": "^0.31.7",
     "react": "^16.5.0",
     "react-dom": "^16.5.0",
     "react-scripts": "1.1.5"
