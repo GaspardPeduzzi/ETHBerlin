@@ -1,5 +1,6 @@
-import React from 'react'
-import TaskItem from "./TaskItem"
+import React from 'react';
+import { Link } from 'react-router-dom';
+import TaskItem from './TaskItem';
 
 class TaskList extends React.Component {
   constructor() {
@@ -11,19 +12,17 @@ class TaskList extends React.Component {
   }
 
   createList() {
-    return (this.state.tasksId.map((id) =>
-    <div className="column">
-        <a href="">
+    return (this.state.tasksId.map(id =>
+    <div key={id} className="column">
+      <Link to={`${this.props.match.url}/${id}`}>
         <TaskItem
-                id={id}
-                name = ""
-                description = ""
-                key = {
-                id.toString()
-                }/>
-        </a>
+          id={id}
+          name = ""
+          description = ""
+        />
+      </Link>
     </div>
-    
+
     ));
   }
 
