@@ -13,7 +13,7 @@ class TaskList extends React.Component {
 
 createList(){
     return (this.state.tasksId.map((id) =>
-        <TaskItem id = {id} />
+        <TaskItem id = {id} name="" description="" />
 ));
 }
 
