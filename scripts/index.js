@@ -1,6 +1,6 @@
 const basic = async () => {
   const connectNetwork = require('./connect');
-  const initialize = require('./init');
+  const initialize = require('./initColony');
 
   const network = await connectNetwork();
   const { address, id } = await initialize(network);
