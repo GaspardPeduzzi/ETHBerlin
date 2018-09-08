@@ -1,1 +1,7 @@
-export default () => 'hello2';
+import React from 'react';
+import TaskList from '../components/TaskList';
+export default () => (
+  <div>
+    <TaskList/>
+  </div>
+)
