@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom';
 import { providers, Wallet } from 'ethers';
 import EthersAdapter from '@colony/colony-js-adapter-ethers';
 import NetworkLoader from '@colony/colony-js-contract-loader-network';
 import ColonyNetworkClient from '@colony/colony-js-client';
+import Redaction from './views/Redaction';
+import Review from './views/Review';
 import { RINKEBY_PRIVATE_KEY } from './env';
 import logo from './logo.svg';
 import './App.css';
@@ -36,15 +43,27 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to Colony</h1>
-        </header>
-        <p className="App-intro">
-          There are {this.state.count} colonies on Rinkeby
-        </p>
-      </div>
+      <Router>
+        <div>
+          <header className="App-header">
+            <img src={logo} className="App-logo" alt="logo" />
+            <h1 className="App-title">Welcome to Colony</h1>
+          </header>
+          <p className="App-intro">
+            There are {this.state.count} colonies on Rinkeby
+          </p>
+          <Link to="/redaction" className="button">
+            Redaction
+          </Link>
+          <Link to="/review" className="button">
+            Review
+          </Link>
+          <p>
+            <Route path="/redaction" component={Redaction}/>
+            <Route path="/review" component={Review}/>
+          </p>
+        </div>
+      </Router>
     );
   }
 }
