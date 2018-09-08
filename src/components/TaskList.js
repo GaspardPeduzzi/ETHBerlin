@@ -13,16 +13,25 @@ class TaskList extends React.Component {
 
 createList(){
     return (this.state.tasksId.map((id) =>
-        <TaskItem id = {id} name="" description="" />
+        <TaskItem id = {id} name="" description="" key={id.toString()}/>
 ));
 }
 
   render(){
     return (
-        
-        <div className="task-list">
-                 {this.createList()}
+        <div className="container is-narrow">
+
+            <div className="task-list">
+                    {this.createList()}
+            </div>
+            <div className="columns is-centered">
+                <div className="column has-text-centered">
+                    <a className="button is-primary">Primary</a>
+                </div>
+            </div>
+            
         </div>
+        
 
     );
     

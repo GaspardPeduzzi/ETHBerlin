@@ -3,16 +3,13 @@ import React from 'react'
 class TaskItem extends React.Component {
 
 
-    constructor(props){
-        super(props);
-
-    }
+   
 
   render(){
     return (
         <div>
-            <div className="task-box">
-                <div className="task-title"> <h3> Title {this.props.id} </h3></div>
+            <div className="box">
+                <div className="task-title"> <h3 className="has-text-weight-bold is-size-4"> Title {this.props.id} </h3></div>
                 <div className="task-description">
                 <p>
                 Curabitur sit amet molestie lorem. Aliquam sit amet lacus dolor. Duis molestie tellus a elit gravida,
