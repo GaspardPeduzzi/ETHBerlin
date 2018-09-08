@@ -5,29 +5,55 @@ class TaskList extends React.Component {
   constructor() {
     super();
     this.state = {
-      tasksId: [1, 2, 3]
+      tasks: []
     }
     this.createList = this.createList.bind(this);
   }
 
+  async componentDidMount() {
+    const client = this.props.colonyClient;
+    const { count } = await client.getTaskCount.call();
+    let tasks = Array(count)
+      .fill()
+      .map(async (_, i) => {
+        const t = await client.getTask.call({ taskId: i + 1})
+        return t
+      }
+      ).filter(async task => {
+        return await task.status === 'ACTIVE';
+      }
+      ).map(async task => {
+        try {
+          const t = JSON.parse((await this.props.node.files.cat(`/ipfs/${task.specificationHash}`)).toString())
+          return t;
+        } catch(e) {
+          return await {
+            title: "Task failed loading",
+            description: ""
+          }
+        }
+      });
+    console.table(tasks);
+    Promise.all(tasks)
+      .then(tasks => this.setState({ tasks }));
+  }
+
   createList() {
-    return (this.state.tasksId.map((id) =>
-    <div className="column">
-        <a href="">
-        <TaskItem
-                id={id}
-                name = ""
-                description = ""
-                key = {
-                id.toString()
-                }/>
-        </a>
-    </div>
-    
+    return (this.state.tasks.map(task =>
+      <TaskItem
+        key={JSON.stringify(task)}
+        id={1}
+        title={task.title}
+        description={task.description}
+      />
     ));
   }
 
   render() {
+    console.log(this.state.tasks)
+    if (!this.props.node || !this.props.colonyClient) {
+      return 'Loading...';
+    }
     return (
       <section className="section has-background-light">
         <div className = "container is-narrow">

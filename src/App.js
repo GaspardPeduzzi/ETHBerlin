@@ -11,15 +11,18 @@ import ColonyNetworkClient from '@colony/colony-js-client';
 import Redaction from './views/Redaction';
 import Review from './views/Review';
 import { RINKEBY_PRIVATE_KEY } from './env';
+import logo from './logo.svg';
+import IPFS from 'ipfs';
 import './App.css';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      metaClient: {},
-      colonyClient: {},
-      count: ''
+      metaClient: null,
+      colonyClient: null,
+      count: '',
+      node: null
     };
   }
 
@@ -34,10 +37,14 @@ class App extends Component {
     });
     const networkClient = new ColonyNetworkClient({ adapter });
     await networkClient.init();
-    const colonyClient = await networkClient.getColonyClient(1);
+    const colonyClient = await networkClient.getColonyClient(9);
     const metaClient = await networkClient.getMetaColonyClient();
     const { count } = await networkClient.getColonyCount.call()
-    this.setState({colonyClient, metaClient, count});
+    const node = new IPFS();
+    node.on('ready', () => {
+      this.setState({ node });
+    })
+    this.setState({ colonyClient, metaClient, count });
   }
 
   render() {
@@ -58,7 +65,7 @@ class App extends Component {
               Review
             </Link>
           </div>
-          <Route path="/redaction" component={Redaction}/>
+          <Route path="/redaction" render={() => <Redaction colonyClient={this.state.colonyClient} node={this.state.node}/>}/>
           <Route path="/review" component={Review}/>
         </div>
       </Router>
