@@ -12,14 +12,18 @@ class TaskList extends React.Component {
 
   createList() {
     return (this.state.tasksId.map((id) =>
-      <TaskItem
-        id={id}
-        name = ""
-        description = ""
-        key = {
-          id.toString()
-        }
-      />
+    <div className="column">
+        <a href="">
+        <TaskItem
+                id={id}
+                name = ""
+                description = ""
+                key = {
+                id.toString()
+                }/>
+        </a>
+    </div>
+    
     ));
   }
 
@@ -32,8 +36,8 @@ class TaskList extends React.Component {
             </div>
             <div className="columns is-centered">
             <div className="column has-text-centered">
-                <a className="button is-primary">
-                Primary
+                <a className="button is-primary is-rounded is-large">
+                     +
                 </a>
             </div>
             </div>
