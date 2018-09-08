@@ -1,1 +1,1 @@
-# ETHBerlin
+# The OpenTimes
