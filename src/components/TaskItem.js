@@ -5,7 +5,7 @@ class TaskItem extends React.Component {
   render(){
     return (
       <div>
-        <div className="box">
+        <div className="is-box-outer">
           {/*<PersonIcon address={this.props.address}/>*/}
           <div className="task-title">
             <h3 className="has-text-weight-bold is-size-4 has-font-serif">{this.props.title}</h3>

@@ -24,7 +24,7 @@ class TaskDetails extends React.Component {
     return (
       <section className="section is-open-blue">
         <div className = "container is-narrow">
-          <div className="box">
+          <div className="is-box-outer">
             <Task task={this.state.task}/>
             <div className="columns is-centered">
               <div className="column has-text-centered">

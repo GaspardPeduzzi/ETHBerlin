@@ -68,7 +68,7 @@ class TaskList extends React.Component {
     return (
       <section className="section is-open-blue">
         <div className = "container is-narrow">
-          <div className="box">
+          <div className="is-box-outer">
             <div className = "task-list" >
               {this.createList()}
               </div>

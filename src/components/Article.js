@@ -8,7 +8,7 @@ class Article extends React.Component {
       <div>
         <section className="section">
           <div className = "container is-narrow">
-            <div className="box">
+            <div className="is-box-outer">
               <div className="columns is-centered">
                 <div className="column is-two-thirds">
                   <div className="content">
@@ -74,7 +74,7 @@ class Article extends React.Component {
                 </div>
               </div>
             </div>
-            <div className="box">
+            <div className="is-box-outer">
               <Task />  
             </div>
           </div>
