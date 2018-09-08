@@ -39,7 +39,7 @@ class App extends Component {
     await networkClient.init();
     const colonyClient = await networkClient.getColonyClient(12);
     const metaClient = await networkClient.getMetaColonyClient();
-    const { count } = await networkClient.getColonyCount.call()
+    const { count } = await networkClient.getColonyCount.call();
     const node = new IPFS();
     node.on('ready', () => {
       this.setState({ node });
@@ -51,22 +51,29 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <div className="is-fullwidth">
-            <h1 className="title has-text-centered has-font-serif is-1 is-spaced-up">
-              The Open Times
-            </h1>
-            <br/>
-          </div>
-          <div className="is-fullwidth columns is-centered">
-            <Link to="/redaction" className="column subtitle has-text-centered">
-              Redaction
-            </Link>
-            <Link to="/review" className="column subtitle has-text-centered">
-              Review
-            </Link>
-          </div>
+          <nav className="navbar" aria-label="main navigation">
+            <div className="navbar-start">
+              <h1 className="navbar-item title has-font-serif is-1">
+                <Link to="/" className="has-text-dark">
+                  The Open Times
+                </Link>
+              </h1>
+            </div>
+            <div className="navbar-end">
+              <div className="navbar-item">
+                <Link to="/redaction" className="has-text-dark subtitle is-1">
+                  Redaction
+                </Link>
+              </div>
+              <div className="navbar-item">
+                <Link to="/review" className="has-text-dark subtitle is-1">
+                  Review
+                </Link>
+              </div>
+            </div>
+          </nav>
           <Route path="/redaction" render={p => <Redaction {...p} colonyClient={this.state.colonyClient} node={this.state.node}/>}/>
-          <Route path="/review" component={Review}/>
+          <Route path="/review" render={p => <Review {...p} colonyClient={this.state.colonyClient} node={this.state.node}/>}/>
         </div>
       </Router>
     );

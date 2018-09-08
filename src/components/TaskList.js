@@ -14,29 +14,34 @@ class TaskList extends React.Component {
   async componentDidMount() {
     const client = this.props.colonyClient;
     const { count } = await client.getTaskCount.call();
-    let tasks = Array(count)
+    const tasks = await Array(count)
       .fill()
-      .map(async (_, i) => {
-        const t = await client.getTask.call({ taskId: i + 1})
-        return t
-      }
-      ).filter(async task => {
-        return await task.status === 'ACTIVE';
-      }
-      ).map(async task => {
-        try {
-          const t = JSON.parse((await this.props.node.files.cat(`/ipfs/${task.specificationHash}`)).toString())
-          return t;
-        } catch(e) {
-          return await {
-            title: "Task failed loading",
-            description: ""
-          }
-        }
-      });
-    console.table(tasks);
+      .map(async (_, i) =>
+        await client.getTask.call({ taskId: i + 1})
+      )
     Promise.all(tasks)
-      .then(tasks => this.setState({ tasks }));
+      .then(tasks => {
+        console.table(tasks)
+        const t = tasks.filter(task =>
+            task.status === 'ACTIVE'
+          ).filter(task =>
+            this.props.isReview ? task.deliverableHash : true
+          ).map(async task => {
+            try {
+              const t = JSON.parse((await this.props.node.files.cat(`/ipfs/${task.specificationHash}`)).toString())
+              return t;
+            } catch(e) {
+              return await {
+                title: "Task failed loading",
+                description: ""
+              }
+            }
+          });
+        Promise.all(t)
+          .then(tasks =>
+            this.setState({ tasks })
+          )
+      })
   }
 
   createList() {
@@ -53,7 +58,6 @@ class TaskList extends React.Component {
   }
 
   render() {
-    console.log(this.state.tasks)
     if (!this.props.node || !this.props.colonyClient) {
       return 'Loading...';
     }
