@@ -13,9 +13,6 @@ import Review from './views/Review';
 import { RINKEBY_PRIVATE_KEY } from './env';
 import './App.css';
 
-
-import TaskList from "./components/TaskList"
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -47,20 +44,22 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <TaskList/>
-          <p>
-            There are {this.state.count} colonies on Rinkeby
-          </p>
-          <Link to="/redaction" className="button">
-            Redaction
-          </Link>
-          <Link to="/review" className="button">
-            Review
-          </Link>
-          <p>
-            <Route path="/redaction" component={Redaction}/>
-            <Route path="/review" component={Review}/>
-          </p>
+          <div className="is-fullwidth">
+            <h1 className="title has-text-centered">
+              The Open Times
+            </h1>
+            <br/>
+          </div>
+          <div className="is-fullwidth columns is-centered">
+            <Link to="/redaction" className="column subtitle has-text-centered">
+              Redaction
+            </Link>
+            <Link to="/review" className="column subtitle has-text-centered">
+              Review
+            </Link>
+          </div>
+          <Route path="/redaction" component={Redaction}/>
+          <Route path="/review" component={Review}/>
         </div>
       </Router>
     );
