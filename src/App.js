@@ -52,7 +52,7 @@ class App extends Component {
       <Router>
         <div>
           <div className="is-fullwidth">
-            <h1 className="title has-text-centered">
+            <h1 className="title has-text-centered has-font-serif is-1 is-spaced-up">
               The Open Times
             </h1>
             <br/>
@@ -65,7 +65,7 @@ class App extends Component {
               Review
             </Link>
           </div>
-          <Route path="/redaction" render={() => <Redaction colonyClient={this.state.colonyClient} node={this.state.node}/>}/>
+          <Route path="/redaction" render={p => <Redaction {...p} colonyClient={this.state.colonyClient} node={this.state.node}/>}/>
           <Route path="/review" component={Review}/>
         </div>
       </Router>

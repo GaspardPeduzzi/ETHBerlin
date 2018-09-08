@@ -9,23 +9,15 @@ const provider = providers.getDefaultProvider(providers.networks.rinkeby);
 
 // Import the ColonyNetworkClient
 const { default: ColonyNetworkClient } = require('@colony/colony-js-client');
-const privateKey = require("../src/env.js").RINKEBY_PRIVATE_KEY;
+const privateKeys = require("../src/env.js");
 
-// Create an instance of the Trufflepig contract loader
-//const loader = new TrufflepigLoader();
 
-// Create a provider for local TestRPC (Ganache)
-// const provider = new providers.JsonRpcProvider('http://localhost:8545/');
+const connectNetwork = async (id) => {
+    const pKey = privateKeys[id];
 
-// An example method for connecting to the local network
-//const connectNetwork = async (accountIndex) => {
-const connectNetwork = async () => {
-
-  // Get the private key from the first Ganache test account
-  //const { privateKey } = await loader.getAccount(accountIndex || 0);
 
   // Create a wallet with the private key (so we have a balance we can use)
-  const wallet = new Wallet(privateKey, provider);
+  const wallet = new Wallet(pKey, provider);
 
   // Create an adapter (powered by ethers)
   const adapter = new EthersAdapter({
@@ -44,7 +36,7 @@ const connectNetwork = async () => {
   console.log('Account Address: ' + networkClient._contract.signer.address);
 
   // Check out the logs to see the address of the deployed network
-  console.log('Network Address: ' + networkClient._contract.address);
+  // console.log('Network Address: ' + networkClient._contract.address);
 
   // Return networkClient
   return networkClient;
@@ -53,3 +45,4 @@ const connectNetwork = async () => {
 
 // Export connectNetwork example
 module.exports = connectNetwork;
+
