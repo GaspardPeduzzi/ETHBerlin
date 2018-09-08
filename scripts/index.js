@@ -1,5 +1,5 @@
-const connect = require('./connect');
+const connectNetwork = require('./connect');
 const initialize = require('./init');
 
-const network = await connect();
-const { address, id } = initialize(network);
+const network = await connectNetwork();
+const { address, id } = await initialize(network);
