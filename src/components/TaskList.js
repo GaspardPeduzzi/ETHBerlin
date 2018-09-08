@@ -51,7 +51,7 @@ class TaskList extends React.Component {
 
   createList() {
     return (this.state.tasks.map((task, i) =>
-      <div key={JSON.stringify(task)} className="column">
+      <div key={JSON.stringify({i, ...task})} className="column">
         <Link to={`${this.props.match.url}/${i}`}>
           <TaskItem
             {...task}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import TaskList from '../components/TaskList';
-import TaskDetails from '../components/TaskDetails'; // This will be Article
+import Article from '../components/Article';
 
 export default props => {
   if (!props.node || !props.colonyClient) {
@@ -9,7 +9,9 @@ export default props => {
   }
   return (
     <div>
-      <Route path={`${props.match.path}/:taskId`} component={TaskDetails}/>
+      <Route path={`${props.match.path}/:taskId`} render={p => (
+        <Article {...p} colonyClient={props.colonyClient} node={props.node} />
+      )}/>
       <Route exact path={props.match.path} render={p => (
         <TaskList {...p} isReview={true} colonyClient={props.colonyClient} node={props.node} />
       )}/>
