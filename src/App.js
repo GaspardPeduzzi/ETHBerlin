@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { providers, Wallet } from 'ethers';
 import EthersAdapter from '@colony/colony-js-adapter-ethers';
-import NetworkLoader from '@colony/colony-js-contract-loader-network'
+import NetworkLoader from '@colony/colony-js-contract-loader-network';
 import ColonyNetworkClient from '@colony/colony-js-client';
 import { RINKEBY_PRIVATE_KEY } from './env';
 import logo from './logo.svg';

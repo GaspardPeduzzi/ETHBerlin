@@ -189,12 +189,6 @@ const moveFundsBetweenPots = async (colonyClient, fromPot, toPot, amount, token)
 
 // An example using the createColony method
 const createTask = async (colonyClient, domainId, specification) => {
-
-
-    console.log(colonyClient);
-    console.log(domainId);
-    console.log(specification);
-
   // Initialise the Extended Colony Protocol
   await ecp.init();
 
@@ -205,12 +199,11 @@ const createTask = async (colonyClient, domainId, specification) => {
   await ecp.stop();
 
   // Create a task and get the taskId from the event data
-  const t = await colonyClient.createTask.send({
+  const { eventData: { taskId } } = await colonyClient.createTask.send({
     specificationHash,
     domainId,
   });
-  const { eventData: { taskId } } = t
-  console.log(t);
+
   // Get our new task using the taskId
   const task = await colonyClient.getTask.call({ taskId });
 
@@ -234,16 +227,32 @@ const initialize = async (networkClient) => {
   const domain = await addDomain(colonyClient, networkClient, 1);
  // const newBalancePot = await moveFundsBetweenPots( colonyClient,1,domain.potId,30,token);
 
-    console.log('domain', domain);
-    
   const task = await createTask(
       colonyClient, 
       domain.id,
       {
         title: 'New Task Title',                  // title
         description: 'New Task Description',      // description
-    },
+      },
   );
+
+//   const task2 = await createTask(
+//     colonyClient, 
+//     domain.id,
+//     {
+//       title: 'Charger',                  // title
+//       description: 'Jen can you please get me the powerplug ?',      // description
+//   },
+// );
+
+// const task3 = await createTask(
+//     colonyClient, 
+//     domain.id,
+//     {
+//       title: 'TasksManagement',                  // title
+//       description: 'I need to find more ideas',      // description
+//   },
+// );
 
   return colony;
 };
