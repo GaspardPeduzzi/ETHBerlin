@@ -11,13 +11,12 @@ class TaskDetails extends React.Component {
   async componentDidMount() {
     const taskId = this.props.match.params.taskId;
     const client = this.props.colonyClient;
-    const task = await client.getTask.call({ taskId: Number(taskId)})
-    console.log('hello')
+    const task = await client.getTask.call({ taskId: Number(taskId) + 1})
     try {
       const result = (await this.props.node.files.cat(`/ipfs/${task.specificationHash}`)).toString();
-      this.setState({ task: await result });
+      this.setState({ task: JSON.parse(await result) });
     } catch(e) {
-      this.setState({ task: await 'Could not load task' });
+      this.setState({ task: await {title: 'Could not load task', description: ''}});
     }
   }
 
@@ -30,7 +29,7 @@ class TaskDetails extends React.Component {
             <div className="columns is-centered">
               <div className="column has-text-centered">
                 <a className="button is-submit-blue is-rounded is-large">
-                     SUBMIT
+                  SUBMIT
                 </a>
               </div>
             </div>
