@@ -1,5 +1,5 @@
 import React from 'react'
-
+import Task from "./Task"
 class TaskDetails extends React.Component {
   constructor(props) {
     super(props);
@@ -23,18 +23,13 @@ class TaskDetails extends React.Component {
 
   render() {
     return (
-      <section className="section has-background-light">
+      <section className="section is-open-blue">
         <div className = "container is-narrow">
           <div className="box">
-            <div className="content">
-                <h2 className="task-title is-size-1 has-text-weight-bold">Task Title</h2>
-                <p className="tast-details has-text-weight-light">
-                {JSON.stringify(this.state.task)}
-                </p>        
-            </div>
+            <Task task={this.state.task}/>
             <div className="columns is-centered">
               <div className="column has-text-centered">
-                <a className="button is-primary is-rounded is-large">
+                <a className="button is-submit-blue is-rounded is-large">
                      SUBMIT
                 </a>
               </div>

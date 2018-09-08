@@ -37,7 +37,7 @@ class App extends Component {
     });
     const networkClient = new ColonyNetworkClient({ adapter });
     await networkClient.init();
-    const colonyClient = await networkClient.getColonyClient(12);
+    const colonyClient = await networkClient.getColonyClient(15);
     const metaClient = await networkClient.getMetaColonyClient();
     const { count } = await networkClient.getColonyCount.call();
     const node = new IPFS();

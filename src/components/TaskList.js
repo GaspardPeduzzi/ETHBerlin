@@ -62,18 +62,20 @@ class TaskList extends React.Component {
       return 'Loading...';
     }
     return (
-      <section className="section has-background-light">
+      <section className="section is-open-blue">
         <div className = "container is-narrow">
+          <div className="box">
             <div className = "task-list" >
-            {this.createList()}
-            </div>
-            <div className="columns is-centered">
-            <div className="column has-text-centered">
-                <a className="button is-primary is-rounded is-large">
-                     +
-                </a>
-            </div>
-            </div>
+              {this.createList()}
+              </div>
+              <div className="columns is-centered">
+              <div className="column has-text-centered">
+                  <a className="button is-submit-blue is-rounded is-large">
+                      +
+                  </a>
+              </div>
+              </div>
+          </div>
         </div>
       </section>
     );
