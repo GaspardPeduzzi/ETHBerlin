@@ -2,21 +2,27 @@
 const { providers, Wallet } = require('ethers');
 const { default: EthersAdapter } = require('@colony/colony-js-adapter-ethers');
 const { TrufflepigLoader } = require('@colony/colony-js-contract-loader-http');
+const { default: NetworkLoader } = require('@colony/colony-js-contract-loader-network');
+const loader = new NetworkLoader({network: 'rinkeby'});
+const provider = providers.getDefaultProvider(providers.networks.rinkeby);
+
 
 // Import the ColonyNetworkClient
 const { default: ColonyNetworkClient } = require('@colony/colony-js-client');
+const privateKey = require("../src/env.js").RINKEBY_PRIVATE_KEY;
 
 // Create an instance of the Trufflepig contract loader
-const loader = new TrufflepigLoader();
+//const loader = new TrufflepigLoader();
 
 // Create a provider for local TestRPC (Ganache)
-const provider = new providers.JsonRpcProvider('http://localhost:8545/');
+// const provider = new providers.JsonRpcProvider('http://localhost:8545/');
 
 // An example method for connecting to the local network
-const connectNetwork = async (accountIndex) => {
+//const connectNetwork = async (accountIndex) => {
+const connectNetwork = async () => {
 
   // Get the private key from the first Ganache test account
-  const { privateKey } = await loader.getAccount(accountIndex || 0);
+  //const { privateKey } = await loader.getAccount(accountIndex || 0);
 
   // Create a wallet with the private key (so we have a balance we can use)
   const wallet = new Wallet(privateKey, provider);
