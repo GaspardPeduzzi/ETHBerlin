@@ -1,41 +1,7 @@
 const BN = require('bn.js');
 const ecp = require('./helpers/ecp');
 
-// An example using the createToken method
-const createToken = async (networkClient, name, symbol) => {
 
-  // Create a new ERC20 token
-  const tokenAddress = await networkClient.createToken({ name, symbol });
-
-  // Check out the logs to see the token address
-  console.log('Token Address: ' + tokenAddress);
-
-  // Return the address
-  return tokenAddress;
-
-};
-
-// An example using the createColony method
-const createColony = async (networkClient, tokenAddress) => {
-
-  // Create a colony with the given token
-  const {
-    eventData: { colonyAddress, colonyId }
-  } = await networkClient.createColony.send({ tokenAddress }, { gasLimit: 4432466 });
-
-  // Check out the logs to see our new colony address
-  console.log('Colony Address:', colonyAddress);
-
-  // Check out the logs to see our new colony id
-  console.log('Colony ID:', colonyId);
-
-  // Return our new colony
-  return {
-    address: colonyAddress,
-    id: colonyId,
-  };
-
-};
 
 // An example using the getColonyClient method
 const getColonyClient = async (networkClient, colonyId) => {
@@ -53,61 +19,6 @@ const getColonyClient = async (networkClient, colonyId) => {
   
     // Return the colonyClient
     return colonyClient;
-};
-
-// An example using the setTokenOwner method
-const setTokenOwner = async (colonyClient, colonyAddress) => {
-
-    // Set the token owner to be the colony contract. This will allow us to mint
-    // and claim tokens using the colonyClient, which will then allow us to fund
-    // domains and tasks within our colony.
-    await colonyClient.token.setOwner.send({ owner: colonyAddress });
-
-    // Get the owner of the token
-    const tokenOwner = await colonyClient.token._contract.owner();
-
-    // Check out the logs to see the owner of the token
-    console.log('Token Owner: ' + tokenOwner);
-
-    // Return tokenOwner
-    return tokenOwner;
-};
-
-// An example using the mintTokens method
-const mintTokens = async (colonyClient, amount) => {
-
-  // Mint tokens
-  await colonyClient.mintTokens.send({ amount: new BN(amount) });
-
-  // Get the total supply of tokens
-  const totalSupply = await colonyClient.token.getTotalSupply.call();
-
-  // Check out the logs to see the total supply of tokens
-  console.log('Total Supply Amount: ' + totalSupply.amount);
-
-  // Return the total supply of tokens
-  return totalSupply;
-
-};
-
-// An example using the claimColonyFunds method
-const claimColonyFunds = async (colonyClient, token) => {
-
-    // Claim funds for our colony from our token
-    await colonyClient.claimColonyFunds.send({ token });
-  
-    // Get the pot balance of our colony
-    const potBalance = await colonyClient.getPotBalance.call({
-      potId: 1,
-      token,
-    });
-  
-    // Check out the logs to see the pot balance of our colony
-    console.log('Colony Pot Balance: ' + potBalance.balance);
-  
-    // Return the pot balance of our colony
-    return potBalance;
-  
 };
 
 // An example using the addDomain method
@@ -234,31 +145,30 @@ const setTaskDueDate = async (colonyClient, taskId, dueDate) => {
     DATABASE.setTaskDueDateOperationJSON = operationJSON;
   
 };
-const initialize = async (networkClient) => {
-  const token = await createToken(networkClient, 'OpenTimes', 'OPT');
-  const colony = await createColony(networkClient, token);
-  const colonyClient = await getColonyClient(networkClient,colony.id);
-  const tokenOwner= await setTokenOwner(colonyClient, colony.address);
-  const totalSupply = await mintTokens(colonyClient, 1000000);
-  const potBalance = await claimColonyFunds(colonyClient, token);
-  const domain = await addDomain(colonyClient, networkClient, 1);
- // const newBalancePot = await moveFundsBetweenPots( colonyClient,1,domain.potId,30,token);
 
- // Create some sample tasks
-const task = await createTask(colonyClient, domain.id,{title: 'New Task Title', description: 'New Task Description'});
 
-// const skill_review = await addGlobalSkill(networkClient, 1);
-// const skill_publish = await addGlobalSkill(networkClient, 2);
-// const skill_propose = await addGlobalSkill(networkClient, 3);
 
-// const finishedTask = finalizeTask(colonyClient,task.id);
+const createSamples = async (networkClient, colony, title, description) => {
 
-// var tomorrow = new Date();
-// tomorrow.setDate(today.getDate()+1);
+    const colonyClient = await getColonyClient(networkClient,colony.id);
+    const domain = await addDomain(colonyClient, networkClient, 1);
+   // const newBalancePot = await moveFundsBetweenPots( colonyClient,1,domain.potId,30,token);
+  
+  
+   // Create some sample tasks
+    const task = await createTask(colonyClient, domain.id,{title: title, description: description});
+    console.log('New task created');
+  
+//   const finishedTask = finalizeTask(colonyClient,task.id);
+  
+//   var tomorrow = new Date();
+//   tomorrow.setDate(today.getDate()+1);
+  
+//   const updatedTask = setTaskDueDate(colonyClient,task.id, tomorrow);
+  
+  
+    return task;
 
-// const updatedTask = setTaskDueDate(colonyClient,task.id, tomorrow);
-
-  return colony;
 };
 
-module.exports = initialize;
+module.exports = createSamples;
