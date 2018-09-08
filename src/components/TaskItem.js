@@ -6,7 +6,7 @@ class TaskItem extends React.Component {
       <div>
         <div className="box">
           <div className="task-title">
-            <h3 className="has-text-weight-bold is-size-4"> Title {this.props.id}</h3>
+            <h3 className="has-text-weight-bold is-size-4 has-font-serif"> Title {this.props.id}</h3>
           </div>
           <div className="task-description">
             <p>
