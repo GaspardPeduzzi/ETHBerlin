@@ -39,7 +39,7 @@ class App extends Component {
     await networkClient.init();
     const colonyClient = await networkClient.getColonyClient(12);
     const metaClient = await networkClient.getMetaColonyClient();
-    const { count } = await networkClient.getColonyCount.call()
+    const { count } = await networkClient.getColonyCount.call();
     const node = new IPFS();
     node.on('ready', () => {
       this.setState({ node });
@@ -66,7 +66,7 @@ class App extends Component {
             </Link>
           </div>
           <Route path="/redaction" render={p => <Redaction {...p} colonyClient={this.state.colonyClient} node={this.state.node}/>}/>
-          <Route path="/review" component={Review}/>
+          <Route path="/review" render={p => <Review {...p} colonyClient={this.state.colonyClient} node={this.state.node}/>}/>
         </div>
       </Router>
     );
