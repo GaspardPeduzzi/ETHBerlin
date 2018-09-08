@@ -10,9 +10,10 @@ import NetworkLoader from '@colony/colony-js-contract-loader-network';
 import ColonyNetworkClient from '@colony/colony-js-client';
 import Redaction from './views/Redaction';
 import Review from './views/Review';
-import { RINKEBY_PRIVATE_KEY } from './env';
+import keys from './env';
 import IPFS from 'ipfs';
 import './App.css';
+const RINKEBY_PRIVATE_KEY = keys[0]
 
 class App extends Component {
   constructor(props) {
@@ -36,7 +37,7 @@ class App extends Component {
     });
     const networkClient = new ColonyNetworkClient({ adapter });
     await networkClient.init();
-    const colonyClient = await networkClient.getColonyClient(9);
+    const colonyClient = await networkClient.getColonyClient(12);
     const metaClient = await networkClient.getMetaColonyClient();
     const { count } = await networkClient.getColonyCount.call()
     const node = new IPFS();

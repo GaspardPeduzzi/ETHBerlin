@@ -234,18 +234,27 @@ const setTaskDueDate = async (colonyClient, taskId, dueDate) => {
     DATABASE.setTaskDueDateOperationJSON = operationJSON;
   
 };
+
 const initialize = async (networkClient) => {
-  const token = await createToken(networkClient, 'OpenTimes', 'OPT');
-  const colony = await createColony(networkClient, token);
-  const colonyClient = await getColonyClient(networkClient,colony.id);
-  const tokenOwner= await setTokenOwner(colonyClient, colony.address);
-  const totalSupply = await mintTokens(colonyClient, 1000000);
-  const potBalance = await claimColonyFunds(colonyClient, token);
-  const domain = await addDomain(colonyClient, networkClient, 1);
+//   const token = await createToken(networkClient, 'OpenTimes', 'OPT');
+//   const colony = await createColony(networkClient, token);
+  const colonyClient = await getColonyClient(networkClient,12);
+
+//   const tokenOwner= await setTokenOwner(colonyClient, colony.address);
+//   const totalSupply = await mintTokens(colonyClient, 1000000);
+//   const potBalance = await claimColonyFunds(colonyClient, token);
+//   const domain = await addDomain(colonyClient, networkClient, 1);
+
+
+  const response = await colonyClient.setAdminRole.send({user:"0x05efa8f42a667da6328f527244050c5990bc305c"});
+console.log(response.successful);
+  const tmp = await colonyClient.setAdminRole.send({user:"0x1e73ba52ac846ab3931c68f0aa9bfaa7130623b6"});
+  console.log(tmp.successful);
+
  // const newBalancePot = await moveFundsBetweenPots( colonyClient,1,domain.potId,30,token);
 
  // Create some sample tasks
-const task = await createTask(colonyClient, domain.id,{title: 'New Task Title', description: 'New Task Description'});
+// const task = await createTask(colonyClient, domain.id,{title: 'New Task Title', description: 'New Task Description'});
 
 // const skill_review = await addGlobalSkill(networkClient, 1);
 // const skill_publish = await addGlobalSkill(networkClient, 2);
@@ -258,7 +267,7 @@ const task = await createTask(colonyClient, domain.id,{title: 'New Task Title', 
 
 // const updatedTask = setTaskDueDate(colonyClient,task.id, tomorrow);
 
-  return colony;
+  return true;
 };
 
 module.exports = initialize;

@@ -110,10 +110,18 @@ const createTask = async (colonyClient, domainId, specification) => {
   await ecp.stop();
 
   // Create a task and get the taskId from the event data
-  const { eventData: { taskId } } = await colonyClient.createTask.send({
+  const tx = await colonyClient.createTask.send({
     specificationHash,
     domainId,
-  });
+  },
+  {
+      gasPrice: 40000000000
+  }
+  );
+  const { eventData: { taskId } } = tx;
+  console.log(tx);
+  console.log(taskId);
+
 
   // Get our new task using the taskId
   const task = await colonyClient.getTask.call({ taskId });
@@ -151,21 +159,21 @@ const setTaskDueDate = async (colonyClient, taskId, dueDate) => {
 const createSamples = async (networkClient, colony, title, description) => {
 
     const colonyClient = await getColonyClient(networkClient,colony.id);
-    const domain = await addDomain(colonyClient, networkClient, 1);
+    // const domain = await addDomain(colonyClient, networkClient, 1);
    // const newBalancePot = await moveFundsBetweenPots( colonyClient,1,domain.potId,30,token);
-  
-  
-   // Create some sample tasks
-    const task = await createTask(colonyClient, domain.id,{title: title, description: description});
+    
+   // Create sample tasks
+    const task = await createTask(colonyClient, 1,{title: title, description: description});
     console.log('New task created');
   
-//   const finishedTask = finalizeTask(colonyClient,task.id);
-  
+  // Assing new date to the task
 //   var tomorrow = new Date();
-//   tomorrow.setDate(today.getDate()+1);
-  
+//   tomorrow.setDate(tomorrow.getDate()+1);
 //   const updatedTask = setTaskDueDate(colonyClient,task.id, tomorrow);
-  
+
+//   // close task
+//   const finishedTask = finalizeTask(colonyClient,task.id);
+
   
     return task;
 

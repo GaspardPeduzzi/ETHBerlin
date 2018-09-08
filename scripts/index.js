@@ -3,10 +3,14 @@ const basic = async () => {
   const initialize = require('./initColony');
   const createTask = require('./initTasks');
 
+
+
   const network1 = await connectNetwork(0);
   const network2 = await connectNetwork(1);
   const network3 = await connectNetwork(2);
-//   const colony = await initialize(network1);
+
+  const tmp2 = await initialize(network1);
+
 
  var colony = {
     address: "0x7dC6f0d0dE9e9AD519BeB029BC37d82Ec6e2d223",
