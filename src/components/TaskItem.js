@@ -9,7 +9,7 @@ class TaskItem extends React.Component {
             <h3 className="has-text-weight-bold is-size-4 has-font-serif">{this.props.title}</h3>
           </div>
           <div className="task-description">
-            <p>
+            <p className=" has-text-weight-light">
               {this.props.description}
             </p>
           </div>

@@ -25,11 +25,20 @@ class TaskDetails extends React.Component {
     return (
       <section className="section has-background-light">
         <div className = "container is-narrow">
-          <div className = "task-details" >
-            <h2 className="task-title">Task Title</h2>
-            <p className="task-details">
-              {JSON.stringify(this.state.task)}
-            </p>
+          <div className="box">
+            <div className="content">
+                <h2 className="task-title is-size-1 has-text-weight-bold">Task Title</h2>
+                <p className="tast-details has-text-weight-light">
+                {JSON.stringify(this.state.task)}
+                </p>        
+            </div>
+            <div className="columns is-centered">
+              <div className="column has-text-centered">
+                <a className="button is-primary is-rounded is-large">
+                     SUBMIT
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>

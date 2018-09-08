@@ -11,7 +11,6 @@ import ColonyNetworkClient from '@colony/colony-js-client';
 import Redaction from './views/Redaction';
 import Review from './views/Review';
 import { RINKEBY_PRIVATE_KEY } from './env';
-import logo from './logo.svg';
 import IPFS from 'ipfs';
 import './App.css';
 
