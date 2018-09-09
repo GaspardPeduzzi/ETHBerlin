@@ -11,7 +11,7 @@ class Article extends React.Component {
   }
 
   async componentDidMount() {
-    const taskId = Number(this.props.match.params.taskId) + 1;
+    const taskId = Number(this.props.match.params.taskId);
     const client = this.props.colonyClient;
     const task = await client.getTask.call({ taskId })
     try {

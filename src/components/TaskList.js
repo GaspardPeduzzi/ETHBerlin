@@ -26,20 +26,28 @@ class TaskList extends React.Component {
             task.status === 'ACTIVE'
           ).filter(task =>
             this.props.isReview ? task.deliverableHash : !task.deliverableHash
-          ).map(async (task, i) => {
+          ).map(async task => {
             try {
               const t = JSON.parse((await this.props.node.files.cat(`/ipfs/${task.specificationHash}`)).toString());
               //const role = this.props.isReview ? 2 : 0;
               return {
-                //address: await client.getTaskRole.call({ taskId: i, role }),
+                //address: await client.getTaskRole.call({ taskId: task.id, role }),
+                id: task.id,
                 ...t
               };
             } catch(e) {
               return await {
                 title: "Task failed loading",
                 description: "",
+                id: task.id
                 //address: "0xCF085317456133E93D72aB5Fc56025d8d3802C38"
               }
+            }
+          }).map(async task => {
+            //const payout = await client.getTaskPayout.call({ taskId: task.id, role: 0, token: '0x0'}).catch(console.log)
+            return {
+              payout: String(Math.random() * 4).slice(0, 4),//(await payout).amount.toString(),
+              ...(await task)
             }
           });
         Promise.all(t)
@@ -50,9 +58,9 @@ class TaskList extends React.Component {
   }
 
   createList() {
-    return (this.state.tasks.map((task, i) =>
-      <div key={JSON.stringify({i, ...task})} className="column">
-        <Link to={`${this.props.match.url}/${i}`}>
+    return (this.state.tasks.map(task =>
+      <div key={JSON.stringify(task)} className="column">
+        <Link to={`${this.props.match.url}/${task.id}`}>
           <TaskItem
             {...task}
           />

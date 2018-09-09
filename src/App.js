@@ -37,7 +37,7 @@ class App extends Component {
     });
     const networkClient = new ColonyNetworkClient({ adapter });
     await networkClient.init();
-    const colonyClient = await networkClient.getColonyClient(26);
+    const colonyClient = await networkClient.getColonyClient(27);
     const metaClient = await networkClient.getMetaColonyClient();
     //console.log(wallet)
     /*const op = await colonyClient.setTaskWorkerRole.startOperation({taskId: 1, user: wallet.address});
