@@ -49,9 +49,9 @@ class Article extends React.Component {
                   <div className="columns is-centered">
                       <div className="column has-text-centered">
                         <div className="buttons is-centered">
-                          <span className="button is-not-satisfiable is-rounded ">Unsatisfactory</span>
-                          <span className="button  is-satisfiable is-rounded">satisfactory</span>
-                          <span className="button is-excellent is-rounded">Excellent</span>
+                          <span className="button is-submit-blue is-rounded "> Unsatisfactory &nbsp; 👎</span>
+                          <span className="button  is-submit-blue is-rounded">Satisfactory &nbsp; 👍</span>
+                          <span className="button is-submit-blue is-rounded">Excellent &nbsp; 🚀</span>
                         </div>
                       </div>
                   </div>
