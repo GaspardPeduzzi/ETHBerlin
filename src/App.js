@@ -9,6 +9,7 @@ import EthersAdapter from '@colony/colony-js-adapter-ethers';
 import NetworkLoader from '@colony/colony-js-contract-loader-network';
 import ColonyNetworkClient from '@colony/colony-js-client';
 import Redaction from './views/Redaction';
+import Article from './components/Article';
 import Review from './views/Review';
 import Home from './views/Home';
 import keys from './env';
@@ -100,6 +101,9 @@ class App extends Component {
           <Route exact path="/" render={p => <Home {...p} colonyClient={this.state.colonyClient} node={this.state.node}/>}/>
           <Route path="/redaction" render={p => <Redaction {...p} colonyClient={this.state.colonyClient} node={this.state.node}/>}/>
           <Route path="/review" render={p => <Review {...p} colonyClient={this.state.colonyClient} node={this.state.node}/>}/>
+          <Route path="/:taskId" render={p => (
+            <Article isHome {...p} colonyClient={this.state.colonyClient} node={this.state.node} />
+          )}/>
         </div>
       </Router>
     );

@@ -25,10 +25,11 @@ class TaskList extends React.Component {
         const t = tasks.filter(task =>
             task.status === 'ACTIVE'
           ).filter(task =>
-            this.props.isReview ? task.deliverableHash : !task.deliverableHash
+            this.props.isReview || this.props.isHome ? task.deliverableHash : !task.deliverableHash
           ).map(async task => {
+            const hash = this.props.isReview || this.props.isHome ? task.deliverableHash : task.specificationHash
             try {
-              const t = JSON.parse((await this.props.node.files.cat(`/ipfs/${task.specificationHash}`)).toString());
+              const t = JSON.parse((await this.props.node.files.cat(`/ipfs/${hash}`)).toString());
               //const role = this.props.isReview ? 2 : 0;
               return {
                 //address: await client.getTaskRole.call({ taskId: task.id, role }),
@@ -60,8 +61,10 @@ class TaskList extends React.Component {
   createList() {
     return (this.state.tasks.map(task =>
       <div key={JSON.stringify(task)} className="column">
-        <Link to={`${this.props.match.url}/${task.id}`}>
+        <Link to={`${this.props.match.url === '/' ? '/' : this.props.match.url + '/'}${task.id}`}>
           <TaskItem
+            isHome={this.props.isHome}
+            isReview={this.props.isReview}
             {...task}
           />
         </Link>
@@ -74,18 +77,20 @@ class TaskList extends React.Component {
       return 'Loading...';
     }
     return (
-      <section className="section is-open-blue has-full-height">
+      <section className={`section has-full-height ${!this.props.isHome ? 'is-open-blue' : ''}`}>
         <div className = "container is-narrow">
-          <div className="is-box-outer">
+          <div className={!this.props.isHome ? 'is-box-outer' : ''}>
             <div className = "task-list" >
               {this.createList()}
               </div>
               <div className="columns is-centered">
-              <div className="column has-text-centered">
-                  <a className="button is-submit-blue is-rounded is-large">
+                {!this.props.isHome &&
+                  <div className="column has-text-centered">
+                    <a className="button is-submit-blue is-rounded is-large">
                       +
-                  </a>
-              </div>
+                    </a>
+                  </div>
+                }
               </div>
           </div>
         </div>

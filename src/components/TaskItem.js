@@ -5,7 +5,7 @@ class TaskItem extends React.Component {
   render(){
     return (
       <div>
-        <div className="is-box-outer">
+        <div className={!this.props.isHome ? "is-box-outer" : 'is-article-outer'}>
           {/*<PersonIcon address={this.props.address}/>*/}
           <div className="tile is-ancestor">
             <div className="tile is-11 is-vertical is-parent">
@@ -16,15 +16,17 @@ class TaskItem extends React.Component {
               </div>
               <div className="tile is-child">
                 <p className=" has-text-weight-light">
-                  {this.props.description}
+                  {this.props.description.slice(50)} ...
                 </p>
               </div>
             </div>
-            <div className="tile is-parent">
-              <div className="tile is-child">
-                <p className="subtitle is-4">{this.props.payout} ETH</p>
+            {!this.props.isHome &&
+              <div className="tile is-parent">
+                <div className="tile is-child">
+                  <p className="subtitle is-4">{this.props.payout} ETH</p>
+                </div>
               </div>
-            </div>
+            }
           </div>
         </div>
       </div>
