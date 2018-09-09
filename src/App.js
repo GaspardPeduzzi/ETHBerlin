@@ -10,6 +10,7 @@ import NetworkLoader from '@colony/colony-js-contract-loader-network';
 import ColonyNetworkClient from '@colony/colony-js-client';
 import Redaction from './views/Redaction';
 import Review from './views/Review';
+import Home from './views/Home';
 import keys from './env';
 import IPFS from 'ipfs';
 import './App.css';
@@ -37,7 +38,7 @@ class App extends Component {
     });
     const networkClient = new ColonyNetworkClient({ adapter });
     await networkClient.init();
-    const colonyClient = await networkClient.getColonyClient(26);
+    const colonyClient = await networkClient.getColonyClient(27);
     const metaClient = await networkClient.getMetaColonyClient();
     //console.log(wallet)
     /*const op = await colonyClient.setTaskWorkerRole.startOperation({taskId: 1, user: wallet.address});
@@ -75,7 +76,7 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <nav className="navbar" aria-label="main navigation">
+          <nav className="navbar has-bottom-margin" aria-label="main navigation">
             <div className="navbar-start">
               <h1 className="navbar-item title has-font-serif is-1">
                 <Link to="/" className="has-text-dark">
@@ -85,17 +86,18 @@ class App extends Component {
             </div>
             <div className="navbar-end">
               <div className="navbar-item">
-                <Link to="/redaction" className="has-text-dark subtitle is-1">
+                <Link to="/redaction" className="has-text-dark subtitle is-4">
                   Redaction
                 </Link>
               </div>
               <div className="navbar-item">
-                <Link to="/review" className="has-text-dark subtitle is-1">
+                <Link to="/review" className="has-text-dark subtitle is-4">
                   Review
                 </Link>
               </div>
             </div>
           </nav>
+          <Route exact path="/" render={p => <Home {...p} colonyClient={this.state.colonyClient} node={this.state.node}/>}/>
           <Route path="/redaction" render={p => <Redaction {...p} colonyClient={this.state.colonyClient} node={this.state.node}/>}/>
           <Route path="/review" render={p => <Review {...p} colonyClient={this.state.colonyClient} node={this.state.node}/>}/>
         </div>
