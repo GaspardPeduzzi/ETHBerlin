@@ -20,3 +20,8 @@ yarn start
 - Rewarding only good content
 - Encourage pertinent news delivery
 - Make journalism more transparent
+
+## Our COlony address
+```
+0x3a81D1F082B784ad49BB9E6Fe05b349d49A85396
+```
