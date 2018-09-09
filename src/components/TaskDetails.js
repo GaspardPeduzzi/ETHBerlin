@@ -21,7 +21,7 @@ class TaskDetails extends React.Component {
   async componentDidMount() {
     const taskId = this.props.match.params.taskId;
     const client = this.props.colonyClient;
-    const task = await client.getTask.call({ taskId: Number(taskId) + 1 })
+    const task = await client.getTask.call({ taskId: Number(taskId) })
     try {
       const result = (await this.props.node.files.cat(`/ipfs/${task.specificationHash}`)).toString();
       this.setState({ task: JSON.parse(await result) });
@@ -31,8 +31,8 @@ class TaskDetails extends React.Component {
   }
 
   onSubmit() {
-    const taskId = Number(this.props.match.params.taskId) + 1;
-    const data = Buffer.from(JSON.stringify({ title: this.state.title, description: this.state.article }));
+    const taskId = Number(this.props.match.params.taskId);
+    const data = Buffer.from(JSON.stringify({title: this.state.title, description: this.state.article}));
     this.props.node.files.add(data).then(result => {
       const deliverableHash = result[0].hash;
       this.props.colonyClient.submitTaskDeliverable.send({ taskId, deliverableHash }).then(this.setRedirect);
