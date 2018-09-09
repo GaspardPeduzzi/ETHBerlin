@@ -196,7 +196,7 @@ module.exports.createTask = async (colonyClient, domainId, specification) => {
   const specificationHash = await ecp.saveHash(specification);
 
   // Stop the Extended Colony Protocol
-//   await ecp.stop();
+  await ecp.stop();
 
   // Create a task and get the taskId from the event data
   const { eventData: { taskId } } = await colonyClient.createTask.send({
@@ -234,5 +234,122 @@ module.exports.setTaskDueDate = async (colonyClient, taskId, dueDate) => {
     DATABASE.setTaskDueDateOperationJSON = operationJSON;
   
 };
+
+module.exports.finalizeTask = async (colonyClient, taskId) => {
+
+  // Finalize the given task
+  await colonyClient.finalizeTask.send({ taskId });
+
+  // Get the updated task
+  const updatedTask = await colonyClient.getTask.call({ taskId });
+
+  // Check out the logs to see the updated task
+  console.log('Updated Task:', updatedTask);
+
+  // Return the updated task
+  return updatedTask;
+
+};
+
+// An example using the submitTaskDeliverable method 
+module.exports.submitTaskDeliverable = async (colonyClient, taskId, deliverable) => {
+
+    // Initialise the Extended Colony Protocol
+    await ecp.init()
+  
+    // Create a deliverable hash for the task
+    const deliverableHash = await ecp.saveHash(deliverable)
+  
+    // Stop the Extended Colony Protocol
+    await ecp.stop()
+  
+    // Submit the deliverable for the given task
+    await colonyClient.submitTaskDeliverable.send({
+      taskId,
+      deliverableHash,
+    });
+  
+    // Get the updated task
+    const updatedTask = await colonyClient.getTask.call({ taskId });
+  
+    // Check out the logs to see the updated task
+    console.log('Updated Task:', updatedTask);
+  
+    // Return the updated task
+    return updatedTask;
+  
+};
+
+// An example using the submitTaskWorkRating method
+module.exports.submitTaskWorkRating = async (colonyClient, taskId, role, rating) => {
+
+    // Set salt value
+    const salt = 'secret';
+  
+    // Set rating value
+    const value = rating;
+  
+    // Generate a secret for the work rating
+    const { secret } = await colonyClient.generateSecret.call({
+      salt,
+      value,
+    });
+  
+    // Submit task work rating for the given task and role
+    const submitTaskWorkRating = await colonyClient.submitTaskWorkRating.send({
+      taskId,
+      role,
+      secret,
+    });
+  
+    // Get the task work ratings
+    const taskWorkRatings = await colonyClient.getTaskWorkRatings.call({
+      taskId,
+    });
+  
+    // Check out the logs to see the updated task work ratings
+    console.log('Task Work Ratings:', taskWorkRatings);
+  
+    // Return the updated task work ratings
+    return taskWorkRatings;
+  
+};
+
+// An example using the revealTaskWorkRating method
+module.exports.revealTaskWorkRating = async (colonyClient, taskId, role, rating) => {
+
+    // Set salt value
+    const salt = 'secret';
+  
+    // Set rating value
+    const value = rating;
+  
+    // Generate a secret for the task work rating
+    const { secret } = await colonyClient.generateSecret.call({
+      salt,
+      value,
+    });
+  
+    // Reveal the task work rating
+    await colonyClient.revealTaskWorkRating.send({
+      taskId,
+      role,
+      rating,
+      salt,
+    });
+  
+    // Get the task work ratings
+    const taskWorkRatings = await colonyClient.getTaskWorkRatings.call({
+      taskId,
+    });
+  
+    // Check out the logs to see the task work ratings
+    console.log('Task Work Ratings:', taskWorkRatings);
+  
+    // Return the task work ratings
+    return taskWorkRatings;
+  
+};
+
 
 
