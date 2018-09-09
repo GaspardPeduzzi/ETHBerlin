@@ -3,9 +3,7 @@ const ecp = require('./helpers/ecp');
 const helper = require('./helpers/functions');
 
 
-const createSamples = async (networkClient, colony, title, description) => {
-
-    const colonyClient = await helper.getColonyClient(networkClient,colony.id);
+const createSamples = async (networkClient,colonyClient, title, description) => {
     // const domain = await addDomain(colonyClient, networkClient, 1);
    // const newBalancePot = await moveFundsBetweenPots( colonyClient,1,domain.potId,30,token);
     
@@ -51,6 +49,11 @@ const createSamples = async (networkClient, colony, title, description) => {
     console.log('Op signed for worker assignement');
     const y3 = await x3.send();
     console.log('Op sent for worker assignement');
+
+
+
+
+
 
   
     return task;

@@ -6,7 +6,7 @@ const helper = require('./helpers/functions');
 const initialize = async (networkClient) => {
   const token = await helper.createToken(networkClient, 'OpenTimes', 'OPT');
   const colony = await helper.createColony(networkClient, token);
-  const colonyClient = await helper.getColonyClient(networkClient,12);
+  const colonyClient = await helper.getColonyClient(networkClient,colony.id);
 
   const tokenOwner= await helper.setTokenOwner(colonyClient, colony.address);
   const totalSupply = await helper.mintTokens(colonyClient, 1000000);
