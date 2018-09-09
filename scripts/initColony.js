@@ -7,7 +7,6 @@ const initialize = async (networkClient) => {
   const token = await helper.createToken(networkClient, 'OpenTimes', 'OPT');
   const colony = await helper.createColony(networkClient, token);
   const colonyClient = await helper.getColonyClient(networkClient,colony.id);
-
   const tokenOwner= await helper.setTokenOwner(colonyClient, colony.address);
   const totalSupply = await helper.mintTokens(colonyClient, 1000000);
   const potBalance = await helper.claimColonyFunds(colonyClient, token);
@@ -22,9 +21,6 @@ const initialize = async (networkClient) => {
  // const newBalancePot = await moveFundsBetweenPots( colonyClient,1,domain.potId,30,token);
 
  // Create some sample tasks
-// const task = await createTask(colonyClient, domain.id,{title: 'New Task Title', description: 'New Task Description'});
-
-
 
   return colony;
 };
