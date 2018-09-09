@@ -25,7 +25,7 @@ class TaskList extends React.Component {
         const t = tasks.filter(task =>
             task.status === 'ACTIVE'
           ).filter(task =>
-            this.props.isReview ? task.deliverableHash : true
+            this.props.isReview ? task.deliverableHash : !task.deliverableHash
           ).map(async (task, i) => {
             try {
               const t = JSON.parse((await this.props.node.files.cat(`/ipfs/${task.specificationHash}`)).toString());
