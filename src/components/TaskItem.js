@@ -20,10 +20,19 @@ class TaskItem extends React.Component {
                 </p>
               </div>
             </div>
-            {!this.props.isHome &&
+            {!this.props.isHome ?
               <div className="tile is-parent">
                 <div className="tile is-child">
                   <p className="subtitle is-4">{this.props.payout} ETH</p>
+                </div>
+              </div> :
+              <div className="tile is-parent">
+                <div className="tile is-child">
+                  <p className="subtitle is-4">
+                    { this.props.rating === 1 && "👎"}
+                    { this.props.rating === 2 && "👍"}
+                    { this.props.rating === 3 && "🚀"}
+                  </p>
                 </div>
               </div>
             }

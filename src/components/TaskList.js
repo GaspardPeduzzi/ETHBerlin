@@ -44,10 +44,12 @@ class TaskList extends React.Component {
                 //address: "0xCF085317456133E93D72aB5Fc56025d8d3802C38"
               }
             }
-          }).map(async task => {
-            //const payout = await client.getTaskPayout.call({ taskId: task.id, role: 0, token: '0x0'}).catch(console.log)
+          }).map(async (task) => {
+            //const { amount }= await client.getTaskPayout.call({ taskId: (await task).id, role: 'WORKER', token: '0x0'})
+            const { rating } = await client.getTaskRole.call({ taskId: (await task).id, role: 'WORKER' })
             return {
-              payout: String(Math.random() * 4).slice(0, 4),//(await payout).amount.toString(),
+              payout: /*(await amount).toNumber(),*/String(Math.random() * 4).slice(0, 4),//(await payout).amount.toString(),
+              rating: await rating,
               ...(await task)
             }
           });
@@ -55,7 +57,7 @@ class TaskList extends React.Component {
           .then(tasks =>
             this.setState({ tasks })
           )
-      })
+      }).catch(console.log)
   }
 
   createList() {

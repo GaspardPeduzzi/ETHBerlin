@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
   Route,
-  Link
+  Link,
+  Switch
 } from 'react-router-dom';
 import { providers, Wallet } from 'ethers';
 import EthersAdapter from '@colony/colony-js-adapter-ethers';
@@ -39,7 +40,7 @@ class App extends Component {
     });
     const networkClient = new ColonyNetworkClient({ adapter });
     await networkClient.init();
-    const colonyClient = await networkClient.getColonyClient(27);
+    const colonyClient = await networkClient.getColonyClient(31);
     const metaClient = await networkClient.getMetaColonyClient();
     //console.log(wallet)
     /*const op = await colonyClient.setTaskWorkerRole.startOperation({taskId: 1, user: wallet.address});
@@ -99,11 +100,13 @@ class App extends Component {
             </div>
           </nav>
           <Route exact path="/" render={p => <Home {...p} colonyClient={this.state.colonyClient} node={this.state.node}/>}/>
-          <Route path="/redaction" render={p => <Redaction {...p} colonyClient={this.state.colonyClient} node={this.state.node}/>}/>
-          <Route path="/review" render={p => <Review {...p} colonyClient={this.state.colonyClient} node={this.state.node}/>}/>
-          <Route path="/:taskId" render={p => (
-            <Article isHome {...p} colonyClient={this.state.colonyClient} node={this.state.node} />
-          )}/>
+          <Switch>
+            <Route path="/redaction" render={p => <Redaction {...p} colonyClient={this.state.colonyClient} node={this.state.node}/>}/>
+            <Route path="/review" render={p => <Review {...p} colonyClient={this.state.colonyClient} node={this.state.node}/>}/>
+            <Route path="/:taskId" render={p => (
+              <Article isHome {...p} colonyClient={this.state.colonyClient} node={this.state.node} />
+            )}/>
+          </Switch>
         </div>
       </Router>
     );
