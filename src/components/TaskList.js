@@ -21,7 +21,6 @@ class TaskList extends React.Component {
       )
     Promise.all(tasks)
       .then(tasks => {
-        console.table(tasks)
         const t = tasks.filter(task =>
             task.status === 'ACTIVE'
           ).filter(task =>
@@ -46,13 +45,12 @@ class TaskList extends React.Component {
               }
             }
           }).map(async (task) => {
-            console.log(await task)
             //const { amount }= await client.getTaskPayout.call({ taskId: (await task).id, role: 'WORKER', token: '0x0'})
-            const { rating } = await client.getTaskRole.call({ taskId: (await task).id, role: 'WORKER' })
-            console.log(await rating)
+            //const { rating } = await client.getTaskRole.call({ taskId: (await task).id, role: 'WORKER' })
+            //console.log(await rating)
             return {
               payout: /*(await amount).toNumber(),*/String(Math.random() * 4).slice(0, 4),//(await payout).amount.toString(),
-              rating: await rating,
+              rating: Math.ceil(Math.random() * 3),//await rating,
               ...(await task)
             }
           });
