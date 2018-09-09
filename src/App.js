@@ -75,7 +75,7 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <nav className="navbar" aria-label="main navigation">
+          <nav className="navbar has-bottom-margin" aria-label="main navigation">
             <div className="navbar-start">
               <h1 className="navbar-item title has-font-serif is-1">
                 <Link to="/" className="has-text-dark">
@@ -85,12 +85,12 @@ class App extends Component {
             </div>
             <div className="navbar-end">
               <div className="navbar-item">
-                <Link to="/redaction" className="has-text-dark subtitle is-1">
+                <Link to="/redaction" className="has-text-dark subtitle is-4">
                   Redaction
                 </Link>
               </div>
               <div className="navbar-item">
-                <Link to="/review" className="has-text-dark subtitle is-1">
+                <Link to="/review" className="has-text-dark subtitle is-4">
                   Review
                 </Link>
               </div>

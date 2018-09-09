@@ -46,7 +46,7 @@ class TaskDetails extends React.Component {
 
   render() {
     return (
-      <section className="section is-open-blue">
+      <section className="section is-open-blue has-full-height">
         <div className = "container is-narrow">
           <div className="is-box-outer">
             <Task task={this.state.task}/>

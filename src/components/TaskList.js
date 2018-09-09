@@ -74,7 +74,7 @@ class TaskList extends React.Component {
       return 'Loading...';
     }
     return (
-      <section className="section is-open-blue">
+      <section className="section is-open-blue has-full-height">
         <div className = "container is-narrow">
           <div className="is-box-outer">
             <div className = "task-list" >
