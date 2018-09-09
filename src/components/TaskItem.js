@@ -16,7 +16,7 @@ class TaskItem extends React.Component {
               </div>
               <div className="tile is-child">
                 <p className=" has-text-weight-light">
-                  {this.props.description.slice(50)} ...
+                  {this.props.description.slice(0, 300)} ...
                 </p>
               </div>
             </div>

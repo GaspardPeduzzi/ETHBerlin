@@ -28,13 +28,14 @@ class TaskList extends React.Component {
             this.props.isReview || this.props.isHome ? task.deliverableHash : !task.deliverableHash
           ).map(async task => {
             const hash = this.props.isReview || this.props.isHome ? task.deliverableHash : task.specificationHash
+            console.log(hash)
             try {
               const t = JSON.parse((await this.props.node.files.cat(`/ipfs/${hash}`)).toString());
               //const role = this.props.isReview ? 2 : 0;
               return {
                 //address: await client.getTaskRole.call({ taskId: task.id, role }),
                 id: task.id,
-                ...t
+                ...(await t)
               };
             } catch(e) {
               return await {
@@ -45,8 +46,10 @@ class TaskList extends React.Component {
               }
             }
           }).map(async (task) => {
+            console.log(await task)
             //const { amount }= await client.getTaskPayout.call({ taskId: (await task).id, role: 'WORKER', token: '0x0'})
             const { rating } = await client.getTaskRole.call({ taskId: (await task).id, role: 'WORKER' })
+            console.log(await rating)
             return {
               payout: /*(await amount).toNumber(),*/String(Math.random() * 4).slice(0, 4),//(await payout).amount.toString(),
               rating: await rating,
