@@ -9,21 +9,43 @@ const basic = async () => {
 //   const network2 = await connectNetwork(1);
 //   const network3 = await connectNetwork(2);
 
-//  const colony = await initialize(network1);
+    // Create a colony
+    const colony = await initialize(network1);
 
-var colony = {
-    address: "0x2459C6109D80BFA50E03A2FB7cE9C0dBb0b28250",
-    id: 27,
-}
+    // Create a colonyClient for the first eth keypair
     const colonyClient = await helper.getColonyClient(network1,colony.id);
 
+    // Create 12 tasks
     const task1 = await initTask(network1,colonyClient,"Is Blockchain the future ?", "Write about ethereum, its founders, the technology and the potential it represents.");
-//   const task2 = await createTask(network2,colony,"Louis", "Frontend");
-//   const task3 = await createTask(network3,colony,"Jean", "Frontend");
+    const task2 = await initTask(network1,colonyClient,"Is Blockchain the future ?", "Write about ethereum, its founders, the technology and the potential it represents.");
+    const task3 = await initTask(network1,colonyClient,"Is Blockchain the future ?", "Write about ethereum, its founders, the technology and the potential it represents.");
+    const task4 = await initTask(network1,colonyClient,"Is Blockchain the future ?", "Write about ethereum, its founders, the technology and the potential it represents.");
+    const task5 = await initTask(network1,colonyClient,"Is Blockchain the future ?", "Write about ethereum, its founders, the technology and the potential it represents.");
+    const task6 = await initTask(network1,colonyClient,"Is Blockchain the future ?", "Write about ethereum, its founders, the technology and the potential it represents.");
+    const task7 = await initTask(network1,colonyClient,"Is Blockchain the future ?", "Write about ethereum, its founders, the technology and the potential it represents.");
+    const task8 = await initTask(network1,colonyClient,"Is Blockchain the future ?", "Write about ethereum, its founders, the technology and the potential it represents.");
+    const task9 = await initTask(network1,colonyClient,"Is Blockchain the future ?", "Write about ethereum, its founders, the technology and the potential it represents.");
+    const task10 = await initTask(network1,colonyClient,"Is Blockchain the future ?", "Write about ethereum, its founders, the technology and the potential it represents.");
+    const task11 = await initTask(network1,colonyClient,"Is Blockchain the future ?", "Write about ethereum, its founders, the technology and the potential it represents.");
+    const task12 = await initTask(network1,colonyClient,"Is Blockchain the future ?", "Write about ethereum, its founders, the technology and the potential it represents.");
 
-    const updatedTask= await helper.submitTaskDeliverable(colonyClient, task1.id, {title:"First Article written", description:"Hello World ! This is a submitted article"});
+    // Set worker and submit a work for the 9 first tasks
+    const updatedTask1= await helper.submitTaskDeliverable(colonyClient, task1.id, {title:"First Article written", description:"Hello World ! This is a submitted article"});
+    const updatedTask2= await helper.submitTaskDeliverable(colonyClient, task2.id, {title:"First Article written", description:"Hello World ! This is a submitted article"});
+    const updatedTask3= await helper.submitTaskDeliverable(colonyClient, task3.id, {title:"First Article written", description:"Hello World ! This is a submitted article"});
+    const updatedTask4= await helper.submitTaskDeliverable(colonyClient, task4.id, {title:"First Article written", description:"Hello World ! This is a submitted article"});
+    const updatedTask5= await helper.submitTaskDeliverable(colonyClient, task5.id, {title:"First Article written", description:"Hello World ! This is a submitted article"});
+    const updatedTask6= await helper.submitTaskDeliverable(colonyClient, task6.id, {title:"First Article written", description:"Hello World ! This is a submitted article"});
+    const updatedTask7= await helper.submitTaskDeliverable(colonyClient, task7.id, {title:"First Article written", description:"Hello World ! This is a submitted article"});
+    const updatedTask8= await helper.submitTaskDeliverable(colonyClient, task8.id, {title:"First Article written", description:"Hello World ! This is a submitted article"});
+    const updatedTask9= await helper.submitTaskDeliverable(colonyClient, task9.id, {title:"First Article written", description:"Hello World ! This is a submitted article"});
 
-    const rating = await initRating(colonyClient, task1.id,3);
+    // Submit and reveal rating for the first 4 taks
+    const ratedTask1 = await initRating(colonyClient, task1.id,3);
+    const ratedTask2 = await initRating(colonyClient, task2.id,2);
+    const ratedTask3 = await initRating(colonyClient, task3.id,1);
+    const ratedTask4 = await initRating(colonyClient, task4.id,3);
+
 }
 
 basic()
