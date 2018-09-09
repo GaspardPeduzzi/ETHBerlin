@@ -193,7 +193,9 @@ module.exports.createTask = async (colonyClient, domainId, specification) => {
   await ecp.init();
 
   // Create a specification hash for the task
-  const specificationHash = await ecp.saveHash(specification);
+//   const specificationHash = await ecp.saveHash(specification);
+    const specificationHash = await specification;
+
 
   // Stop the Extended Colony Protocol
   await ecp.stop();
@@ -258,7 +260,8 @@ module.exports.submitTaskDeliverable = async (colonyClient, taskId, deliverable)
     await ecp.init()
   
     // Create a deliverable hash for the task
-    const deliverableHash = await ecp.saveHash(deliverable)
+    // const deliverableHash = await ecp.saveHash(deliverable)
+    const deliverableHash = deliverable;
   
     // Stop the Extended Colony Protocol
     await ecp.stop()

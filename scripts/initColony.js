@@ -3,6 +3,7 @@ const ecp = require('./helpers/ecp');
 const helper = require('./helpers/functions');
 
 
+
 const initialize = async (networkClient) => {
   const token = await helper.createToken(networkClient, 'OpenTimes', 'OPT');
   const colony = await helper.createColony(networkClient, token);
@@ -22,7 +23,7 @@ const initialize = async (networkClient) => {
 
  // Create some sample tasks
 
-  return colony;
+  return {colony:colony,token:token};
 };
 
 module.exports = initialize;

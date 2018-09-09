@@ -3,12 +3,13 @@ const ecp = require('./helpers/ecp');
 const helper = require('./helpers/functions');
 
 
-const createSamples = async (networkClient,colonyClient, title, description) => {
+// const createSamples = async (networkClient,colonyClient, title, description, price, token) => {
+    const createSamples = async (networkClient,colonyClient, hash) => {
     // const domain = await addDomain(colonyClient, networkClient, 1);
    // const newBalancePot = await moveFundsBetweenPots( colonyClient,1,domain.potId,30,token);
     
    // Create sample tasks
-    const task = await helper.createTask(colonyClient, 1,{title: title, description: description});
+    const task = await helper.createTask(colonyClient, 1,hash);
     // await colonyClient.setTaskRoleUser.send({
     //     taskId: task.id,
     //     role: 'MANAGER',
@@ -51,9 +52,19 @@ const createSamples = async (networkClient,colonyClient, title, description) => 
     console.log('Op sent for worker assignement');
 
 
+    // const setPayout = await colonyClient.setTaskWorkerPayout.startOperation({
+    //     task:task.id,
+    //     token:token,
+    //     amount: new BN(price),
+    //   });
+    //   console.log("setting payout");
 
+    //   const a = await setPayout.sign();
+    //   console.log('signing payout tx');
 
-
+    //   const b = await setPayout.send(); 
+    //   console.log('payout tx sent');
+    
 
   
     return task;
